@@ -18,3 +18,10 @@ def create_login_token() -> str:
         key=JWT_KEY,
         algorithm="HS256"
     )
+
+def is_token_valid(token: str) -> bool:
+    try:
+        jwt.decode(jwt=token, key=JWT_KEY, algorithms=["HS256"])
+        return True
+    except:
+        return False

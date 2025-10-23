@@ -13,9 +13,8 @@ INITAL_PASSWORD = os.getenv("INITAL_PASSWORD")
 def hash_func(password: str) -> bytes:
     return sha512((password + SALT).encode()).digest()
 
-if __name__ == "__main__":
-    try:
-        with open("./admin_password.bin", "xb") as file:
-            file.write(hash_func(INITAL_PASSWORD))
-    except:
-        pass
+try:
+    with open("./admin_password.bin", "xb") as file:
+        file.write(hash_func(INITAL_PASSWORD))
+except:
+    pass

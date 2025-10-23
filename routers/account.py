@@ -4,14 +4,19 @@ from utils.tokener import create_login_token
 
 router = APIRouter(prefix="/account", tags=["account"])
 
-# Todo: 로그인 쿠키 만들 때 httponly, secure 등 보안 옵션 추가
 @router.get("")
 def login_router(password: str):
     if is_login_able(password):
         response = Response()
         login_token = create_login_token()
 
-        response.set_cookie("login_token", login_token, max_age = 7 * 24 * 60 * 60)
+        response.set_cookie(
+            key = "login_token", 
+            value = login_token, 
+            max_age = 7 * 24 * 60 * 60,
+            httponly=True,
+            secure=False # 배포시 변경
+        )
         
         return response
 

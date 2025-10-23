@@ -15,3 +15,10 @@ def login_router(password: str):
         return response
 
     return Response(status_code=401)
+
+@router.get("/logout")
+def logout_router():
+    response = Response()
+    response.delete_cookie("login_token")
+    
+    return response
